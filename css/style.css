@@ -1,0 +1,29 @@
+html {
+  font-family: sans-serif;
+}
+.main {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.main .comp {
+  display: flex;
+  justify-content: space-between;
+}
+.main .comp #comp1 {
+  transform: rotate(133deg);
+}
+.main .comp #comp2 {
+  transform: rotate(240deg);
+}
+.main .player #player1 {
+  transform: rotate(0deg);
+}
+.main .player {
+  display: flex;
+  justify-content: center;
+}
+
+.main img {
+  width: 200px;
+}
