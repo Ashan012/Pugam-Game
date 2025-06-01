@@ -1,82 +1,71 @@
-// const img = {
-//   FRONT,
-//   BACK: (document.getElementById("player1").src = "../img/front.svg"),
-// };
-
 const main = () => {
-  const result1 = player1();
+  comp1Func.comp1();
+  comp2Func.comp1();
+  playerFunc.comp1();
 
-  const result2 = comp1();
-
-  const result3 = comp2();
-  const result = [result1, result2, result3];
-
-  calculateMove(result);
+  calculateResult();
 };
-const player1 = (ramdomIndex) => {
-  const movePlayer1 = prompt("Entre Your Move").toLowerCase();
-  if (movePlayer1 === "front") {
-    document.getElementById("player1").src = "../img/front.svg";
 
-    return (ramdomIndex = 0);
-  } else if (movePlayer1 === "back") {
-    document.getElementById("player1").src = "../img/back.svg";
-    return (ramdomIndex = 1);
-  } else {
-    alert("invalid move");
-    throw new Error("invalid");
+class func {
+  constructor(name) {
+    this.name = name;
   }
+  comp1() {
+    let RandomIndex = Math.random() > 0.5 ? 1 : 0;
+    console.log(RandomIndex);
+
+    if (RandomIndex === 1) {
+      this.name.src = img1.BACK;
+    }
+    Result.push(RandomIndex);
+    return;
+  }
+}
+const comp1 = document.getElementById("comp1");
+const comp2 = document.getElementById("comp2");
+const player = document.getElementById("player");
+
+let img1 = {
+  FRONT: "../img/front.svg",
+  BACK: "../img/back.svg",
 };
 
-const comp1 = (ramdomIndex) => {
-  ramdomIndex = 1;
-  ramdomIndex = Math.random() > 0.5 ? 1 : 0;
-  if (ramdomIndex == 1) {
-    document.getElementById("comp1").src = "../img/back.svg";
-  }
-  return ramdomIndex;
-};
-const comp2 = (ramdomIndex) => {
-  ramdomIndex = 1;
-  ramdomIndex = Math.random() > 0.5 ? 1 : 0;
-  if (ramdomIndex == 1) {
-    const img = (document.getElementById("comp2").src = "../img/back.svg");
-  }
-  return ramdomIndex;
-};
-const calculateMove = (result) => {
-  const allMoveFront = result.every((move) => {
-    return move === 1;
-  });
-  const allMoveBack = result.every((move) => {
+const Result = [];
+
+const comp1Func = new func(comp1);
+const comp2Func = new func(comp2);
+const playerFunc = new func(player);
+
+const calculateResult = () => {
+  const allmoveFront = Result.every((move) => {
     return move === 0;
   });
-
-  if (allMoveBack == true || allMoveFront == true) {
-    console.log("noWinner");
-
+  const allmoveBack = Result.every((move) => {
+    return move === 1;
+  });
+  if (allmoveFront === true || allmoveBack === true) {
+    alert("no winner");
     return;
   }
   const score = {
-    front: [],
-    back: [],
+    FRONT: [],
+    BACK: [],
   };
-  result.forEach((move, index) => {
-    // console.log(move, index);
-    if (move === 1) {
-      score.front.push(index);
+  Result.forEach((move, index) => {
+    if (move == 0) {
+      score.FRONT.push(index);
     } else {
-      score.back.push(index);
+      score.BACK.push(index);
     }
   });
-  if (score.front.length === 1) {
-    announceWinner(score.front[0], ["player1", "comp1", "comp2"]);
+
+  announceWinner(score, ["comp1", "comp2", "player"]);
+};
+const announceWinner = (score, listOfPlayer) => {
+  if (score.FRONT.length === 1) {
+    alert(`winner is ${listOfPlayer[score.FRONT]}`);
   } else {
-    announceWinner(score.back[0], ["player1", "comp1", "comp2"]);
+    alert(`winner is ${listOfPlayer[score.BACK]}`);
   }
 };
-const announceWinner = (winner, players) => {
-  alert(`winner is ${players[winner]}`);
-};
-
 main();
